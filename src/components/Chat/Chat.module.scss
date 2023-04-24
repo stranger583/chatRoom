@@ -1,0 +1,73 @@
+.messenger {
+    display: flex;
+    border: 1px solid rgba($color: #fff, $alpha: .3);
+    height: 100%;
+    max-width: 935px;
+    width: 100%;
+    margin: 0 auto;
+
+    &_list {
+        border-right: 1px solid rgba($color: #fff, $alpha: .3);
+        height: 100%;
+        width: 350px;
+
+        &_head {
+            height: 59px;
+            padding:  0 20px;
+            border-bottom: 1px solid rgba($color: #fff, $alpha: .3);
+
+            &_title {
+                display: block;
+                color: #fff;
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 59px;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                
+            }
+        }
+
+        &_body {
+            padding: 8px 20px 0;
+
+            &_top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                span:first-child {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                span:last-child {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin: 0;
+                    padding: 0;
+                    color: #0095f6;
+
+                }
+
+
+            }
+        }
+        
+    }
+
+    &_box {
+        height: 100%;
+        width: 100%;
+
+        &_head {
+            height: 59px;
+            border-bottom: 1px solid rgba($color: #fff, $alpha: .3);
+
+
+        }
+    }
+}
