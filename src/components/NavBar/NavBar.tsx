@@ -1,5 +1,6 @@
 import styles from "./NavBar.module.scss"
 import { HomeIcon, MessengerIcon, PostIcon,SearchIcon, MoreIcon } from "../Icons/Icons"
+import { Link } from "react-router-dom"
 
 
 function NavBar() {
@@ -10,19 +11,19 @@ function NavBar() {
       </div>
       <ul className={styles.navBar_nav}>
         <li>
-          <a href="#"><div className={styles.icon}>{HomeIcon}</div> Home</a>
+          <Link to="/" className={styles.navBar_link}><div className={styles.icon}>{HomeIcon}</div> Home</Link>
         </li>
         <li>
-          <a href="#"><div className={styles.icon}>{SearchIcon}</div> Search</a>
+          <Link to="/search" className={styles.navBar_link}><div className={styles.icon}>{SearchIcon}</div> Search</Link>
         </li>
         <li>
-          <a href="#"><div className={styles.icon}>{MessengerIcon}</div> Messenger</a>
+          <Link to="/messenger" className={styles.navBar_link}><div className={styles.icon}>{MessengerIcon}</div> Messenger</Link>
         </li>
         <li>
-          <a href="#"><div className={styles.icon}>{PostIcon}</div> Post</a>
+          <Link to="post" className={styles.navBar_link}><div className={styles.icon}>{PostIcon}</div> Post</Link>
         </li>
         <li>
-          <a href="#"><div className={styles.icon}>{PostIcon}</div> Profile</a>
+          <Link to="Profile" className={styles.navBar_link}><div className={styles.icon}>{PostIcon}</div> Profile</Link>
         </li>
       </ul>
       <div className={styles.navBar_more}>
