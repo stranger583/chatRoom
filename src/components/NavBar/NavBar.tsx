@@ -1,7 +1,7 @@
 import styles from "./NavBar.module.scss"
 import { HomeIcon, MessengerIcon, PostIcon,SearchIcon, MoreIcon } from "../Icons/Icons"
 import { Link } from "react-router-dom"
-import ProfileAvatar from "../ProfileAvatar/ProfileAvatar"
+import Avatar from "../Avatar"
 
 
 function NavBar() {
@@ -24,7 +24,7 @@ function NavBar() {
           <Link to="post" className={styles.navBar_link}><div className={styles.icon}>{PostIcon}</div> Post</Link>
         </li>
         <li>
-          <Link to="Profile" className={styles.navBar_link}><div className={styles.icon}><ProfileAvatar isStoryControl={true}/></div> Profile</Link>
+          <Link to="Profile" className={styles.navBar_link}><div className={styles.icon}><Avatar/></div> Profile</Link>
         </li>
       </ul>
       <div className={styles.navBar_more}>
