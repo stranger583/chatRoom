@@ -1,0 +1,26 @@
+.profileAvatar {
+    height: 100%;
+
+    .imgBox {
+        border: 2px gray solid;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    img {
+        height: 100%;
+    }
+}
+
+.avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+        height: 100%;
+    }
+}

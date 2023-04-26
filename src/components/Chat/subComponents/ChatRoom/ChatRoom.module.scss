@@ -1,0 +1,17 @@
+.ChatRoom{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 8px 0;
+    box-sizing: border-box;
+    gap: 12px;
+
+    .ChatRoom_title {
+        font-weight: 600;
+    }
+
+    .ChatRoom_context {
+        color:rgb(146, 146, 146);
+    }
+    
+}

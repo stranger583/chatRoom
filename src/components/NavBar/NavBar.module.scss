@@ -53,6 +53,10 @@ $color : #fff;
             .navBar_link{
                 @include links;
                 
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                }
             }
         }
     }

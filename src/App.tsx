@@ -10,6 +10,7 @@ function App() {
 
         <div className={styles.app}>
           <NavBar />
+          <div className={styles.app_context}>
             <Routes>             
                     <Route index element={<div>Home</div>} />
                     <Route path='/search' element={<div>Search</div>} />
@@ -18,7 +19,6 @@ function App() {
                     <Route path='/messenger' element={<Chat />} />
                     <Route path='*' element={<div>123</div>} />
             </Routes>
-          <div className={styles.app_context}>
           </div>
         </div>
   )

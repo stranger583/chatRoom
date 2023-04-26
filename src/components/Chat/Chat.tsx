@@ -1,4 +1,6 @@
 import styles from "./Chat.module.scss"
+import ChatRoom from "./subComponents/ChatRoom/ChatRoom";
+
 
 function Chat() {
   return (
@@ -12,7 +14,18 @@ function Chat() {
             <span>{"訊息"}</span>
             <span>{"1則陌生訊息"}</span>
           </div>
-          <div className={styles.messenger_list_body_bottom}></div>
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+          <ChatRoom />
+
         </div>
 
       </div>
