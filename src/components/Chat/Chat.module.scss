@@ -1,20 +1,22 @@
+$whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
+
 .messenger {
     display: flex;
-    border: 1px solid rgba($color: #fff, $alpha: .3);
+    border: $whiteBorder;
     height: 100%;
     max-width: 935px;
     width: 100%;
     margin: 0 auto;
 
     &_list {
-        border-right: 1px solid rgba($color: #fff, $alpha: .3);
+        border-right: $whiteBorder;
         height: 100%;
         width: 350px;
 
         &_head {
             height: 59px;
             padding:  0 20px;
-            border-bottom: 1px solid rgba($color: #fff, $alpha: .3);
+            border-bottom: $whiteBorder;
 
             &_title {
                 display: block;
@@ -55,8 +57,7 @@
                 span:first-child {
                     font-size: 16px;
                     font-weight: 600;
-                    margin: 0;
-                    padding: 0;
+                    
                 }
 
                 span:last-child {
@@ -79,10 +80,157 @@
         width: 100%;
 
         &_head {
+            padding: 0 20px;
             height: 59px;
-            border-bottom: 1px solid rgba($color: #fff, $alpha: .3);
+            border-bottom: $whiteBorder;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &_avatar {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                span {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+            }
+
+            &_iconBar {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
 
 
+        }
+
+        &_body {
+            display: flex;
+            flex-direction: column;
+            // padding: 0 20px;
+            height: calc(100% - 60px);
+
+            &_dialogueContainer {
+                flex-grow: 1;
+                height: 100%;
+                overflow-y: scroll;
+                padding: 20px;
+
+                &_context {
+                    .dialogueBlock:not(:first-child) {
+                        margin-top: 20px;
+                    }
+
+                    .dialogueBlock_date {
+                        display: block;
+                        text-align: center;
+                        font-size: 14px;
+                        color: rgb(146, 146, 146)
+                    }
+
+                    .otherDialogue {
+                        display: flex;
+                        align-items: flex-end;
+                        margin-top:8px;
+
+                        .dialogue {
+                            margin-left: 8px;
+                            
+                            p {
+                                word-wrap: break-word;
+                                word-break: break-all;
+                                max-width: 300px;
+                                width: max-content;
+                                margin-top: 4px;
+                                padding: 8px 12px;
+                                border: $whiteBorder;
+                                border-radius: 12px;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+
+                    .selfDialogue {
+                        margin-top:8px;
+
+                        .dialogue {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-end;
+
+                            p {
+                                max-width: 300px;
+                                width: max-content;
+                                margin-top: 4px;
+                                padding: 8px 12px;
+                                border: $whiteBorder;
+                                border-radius: 12px;
+                                font-size: 14px;
+                                word-wrap: break-word;
+                                word-break: break-all;
+                            }
+                        }
+
+                    }
+                    
+                }
+
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+                &::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                }
+    
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background-color: rgba($color: #ececec, $alpha:.3);
+                }
+            }
+
+            &_inputBox {
+                display: flex;
+                align-items: flex-end;
+                gap: 8px;
+                padding: 8px 12px;
+                margin:  20px;
+                margin-top: 20px;
+                border: $whiteBorder;
+                border-radius: 30px;
+
+
+
+                
+                textarea {
+                    box-sizing: border-box;
+                    resize: none;
+                    flex-grow: 1;
+                    border: 0;
+                    background-color: transparent;
+                    color: #fff;
+                    padding: 0 8px;
+                    height: 18px;
+                    max-height: 200px;
+                    overflow: auto;
+                    overflow-y: hidden;
+                    font-size: 16px;
+                    line-height: 18px;
+
+                    &:focus{
+                        outline: none;
+                    }
+                }
+
+                &_iconBar {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    
+                }
+            }
         }
     }
 }
