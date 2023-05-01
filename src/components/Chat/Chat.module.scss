@@ -138,41 +138,26 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
 
                         .dialogue {
                             margin-left: 8px;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            border: $whiteBorder;
+                            border-radius: 22px;
                             
                             p {
-                                word-wrap: break-word;
-                                word-break: break-all;
-                                max-width: 300px;
+                                box-sizing: border-box;
+                                max-width: 236px;
                                 width: max-content;
-                                margin-top: 4px;
-                                padding: 8px 12px;
-                                border: $whiteBorder;
-                                border-radius: 12px;
+                                padding: 16px;
+                                margin: -3px 0 -4px;
+                                
                                 font-size: 14px;
                             }
                         }
                     }
 
                     .selfDialogue {
-                        margin-top:8px;
+                        justify-content: space-between;
 
-                        .dialogue {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: flex-end;
-
-                            p {
-                                max-width: 300px;
-                                width: max-content;
-                                margin-top: 4px;
-                                padding: 8px 12px;
-                                border: $whiteBorder;
-                                border-radius: 12px;
-                                font-size: 14px;
-                                word-wrap: break-word;
-                                word-break: break-all;
-                            }
-                        }
 
                     }
                     

@@ -73,13 +73,26 @@ function Chat() {
                   <Avatar />
                   <div className={styles.dialogue}>
                     <p>你好 !!!</p>
+                  </div>
+                </div>
+
+                <div className={styles.otherDialogue}>
+                  <Avatar />
+                  <div className={styles.dialogue}>
                     <p>今天領薪水 !</p>
                   </div>
                 </div>
 
-                <div className={styles.selfDialogue}>
+                <div className={`${styles.otherDialogue} ${styles.selfDialogue}`}>
+                <Avatar />
                   <div className={styles.dialogue}>
                     <p>你好 !!!</p>
+                  </div>
+                </div>
+
+                <div className={`${styles.otherDialogue} ${styles.selfDialogue}`}>
+                <Avatar />
+                  <div className={styles.dialogue}>
                     <p>今天領薪水 !</p>
                   </div>
                 </div>
@@ -88,51 +101,24 @@ function Chat() {
                   <Avatar />
                   <div className={styles.dialogue}>
                     <p>星期五</p>
+                  </div>
+                </div>
+
+                <div className={styles.otherDialogue}>
+                  <Avatar />
+                  <div className={styles.dialogue}>
                     <p>要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了</p>
                   </div>
                 </div>
 
-                <div className={styles.selfDialogue}>
+                <div className={`${styles.otherDialogue} ${styles.selfDialogue}`}>
+                <Avatar />
                   <div className={styles.dialogue}>
-                    <p>星期五</p>
                     <p>要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了</p>
                   </div>
                 </div>
               </div>
               
-              <div className={styles.dialogueBlock}>
-                <div className={styles.dialogueBlock_date}>{"昨天10:44 上午"}</div>
-
-                <div className={styles.otherDialogue}>
-                  <Avatar />
-                  <div className={styles.dialogue}>
-                    <p>你好 !!!</p>
-                    <p>今天領薪水 !</p>
-                  </div>
-                </div>
-
-                <div className={styles.selfDialogue}>
-                  <div className={styles.dialogue}>
-                    <p>你好 !!!</p>
-                    <p>今天領薪水 !</p>
-                  </div>
-                </div>
-
-                <div className={styles.otherDialogue}>
-                  <Avatar />
-                  <div className={styles.dialogue}>
-                    <p>星期五</p>
-                    <p>要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了</p>
-                  </div>
-                </div>
-
-                <div className={styles.selfDialogue}>
-                  <div className={styles.dialogue}>
-                    <p>星期五</p>
-                    <p>要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了要放假了</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
           </div>
