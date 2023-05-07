@@ -1,0 +1,68 @@
+$whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
+
+.messenger_list {
+    border-right: $whiteBorder;
+    height: 100%;
+    width: 350px;
+
+    &_head {
+        height: 59px;
+        padding:  0 20px;
+        border-bottom: $whiteBorder;
+
+        &_title {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 59px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            
+        }
+    }
+
+    &_body {
+        height: calc(100%  - 68px);
+        padding: 8px 20px 0;
+        overflow-y:scroll;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: rgba($color: #ececec, $alpha:.3);
+        }
+        
+
+        &_top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            span:first-child {
+                font-size: 16px;
+                font-weight: 600;
+                
+            }
+
+            span:last-child {
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0;
+                padding: 0;
+                color: #0095f6;
+
+            }
+
+
+        }
+    }
+    
+}
