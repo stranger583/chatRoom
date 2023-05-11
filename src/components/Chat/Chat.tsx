@@ -6,9 +6,9 @@ import MessengerContainer from "./subComponents/MessengerContainer/MessengerCont
 import MessengerInputBox from "./subComponents/MessengerInputBox/MessengerInputBox";
 
 import Avatar from "../Avatar";
-import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
+import { PhoneIcon, VideoIcon, InfoIcon, ReplyIcon } from "../Icons/Icons";
 
-import { auth,db } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import { collection } from "firebase/firestore";
 
 

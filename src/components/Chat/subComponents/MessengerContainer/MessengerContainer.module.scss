@@ -23,6 +23,11 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
             align-items: flex-end;
             margin-top:8px;
 
+            &:hover >.textBox>.dialogueBox > button{            
+                    visibility: visible;
+                
+            }
+
             .dialogue {
                 margin-left: 8px;
                 width: max-content;
@@ -39,6 +44,16 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
                     margin: -3px 0 -4px;
                     
                     font-size: 14px;
+                }
+            }
+
+            .dialogueBox {
+                display: flex;
+                gap: 4px;
+                button {
+                    visibility: hidden;
+                    background-color: rgba(255, 255, 255, 0);
+                    border: 0;
                 }
             }
         }
@@ -61,6 +76,7 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
                 }
 
                 .replyContainer {
+                    justify-content: end;
                     &_box {
                         background-color: rgba(255, 255, 255, 0);
                         border: $whiteBorder;
@@ -75,7 +91,22 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
                     align-self: flex-end;
                     background-color: #383838;
                     border: 0;
+                    order: 3;
                 }
+
+                .dialogueBox {
+                    justify-content: end;
+                    
+                    button:first-child {
+                        order: 0;
+                    }
+
+                    button:last-child {
+                        order: -1;
+                    }
+                }
+                
+
 
             }
 
