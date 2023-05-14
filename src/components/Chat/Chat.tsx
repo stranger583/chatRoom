@@ -6,7 +6,7 @@ import MessengerContainer from "./subComponents/MessengerContainer/MessengerCont
 import MessengerInputBox from "./subComponents/MessengerInputBox/MessengerInputBox";
 
 import Avatar from "../Avatar";
-import { PhoneIcon, VideoIcon, InfoIcon, ReplyIcon } from "../Icons/Icons";
+import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
 
 import { auth, db } from "../../firebase-config";
 import { collection } from "firebase/firestore";
@@ -18,6 +18,11 @@ function Chat() {
 
   const [textareaValue, setTextareaValue] = useState("");
   const messengerRef = collection(db,"messenger")
+  const [yourReply, setYourReply] = useState("")
+
+const handleReply = (replyText : string) => {
+  setYourReply(replyText)
+}
 
 
   return (
@@ -37,8 +42,14 @@ function Chat() {
         </div>
 
         <div className={styles.messenger_box_body}>
-          <MessengerContainer messengerRef={messengerRef}/>
-          <MessengerInputBox textareaValue={textareaValue} setTextareaValue={setTextareaValue} messengerRef={messengerRef}/>
+          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply}/>
+          <MessengerInputBox 
+            textareaValue={textareaValue} 
+            setTextareaValue={setTextareaValue} 
+            messengerRef={messengerRef} 
+            yourReply={yourReply}
+            handleReply={handleReply}
+          />
         </div>
       </div>
     </div>

@@ -40,3 +40,29 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
         
     }
 }
+
+.yourReplyContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 0;
+    margin-bottom: -12px;
+    border-top: $whiteBorder;
+    font-size: 15px;
+
+
+    button {
+        background: #000;
+        border: 0;
+    }
+
+    .yourReplyPerson {
+        div {
+            color: #737373;
+        }
+        p {
+            max-width: 375px;
+        }
+        
+    }
+}

@@ -1,11 +1,12 @@
 import Avatar from "../../../Avatar"
 import styles from './MessengerContainer.module.scss'
 import {useEffect, useState } from 'react';
-import {  onSnapshot, where, query, CollectionReference, DocumentData, Timestamp } from "firebase/firestore";
+import {  onSnapshot, where, query, CollectionReference, DocumentData } from "firebase/firestore";
 import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
 
 interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
+    handleReply:(replyText:string)=> void
 }
 interface I_reatedAt{
     nanoseconds:Date;
@@ -21,14 +22,9 @@ interface I_Messenger {
     reply:string;
 }
 
-function MessengerContainer({messengerRef}:I_MessengerContainer) {
+function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
     const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
     const room = "room1";
-    
-    const handleReply = (replyText :string) => {
-        console.log(replyText)
-        
-    }
 
     useEffect(()=>{
         const queryMessenger = query(messengerRef,where("room", "==", room));
