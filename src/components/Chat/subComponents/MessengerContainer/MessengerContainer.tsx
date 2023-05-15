@@ -6,11 +6,11 @@ import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
 
 interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
-    handleReply:(replyText:string)=> void
+    handleReply:(replyID:string, replyText:string)=> void
 }
 interface I_reatedAt{
-    nanoseconds:Date;
-    seconds:Date;
+    nanoseconds:number;
+    seconds:number;
 }
 
 interface I_Messenger {
@@ -19,8 +19,12 @@ interface I_Messenger {
     room:string;
     id:string;
     createdAt:I_reatedAt;
-    reply:string;
+    reply:I_yourReply;
 }
+interface I_yourReply {
+    replyID:string,
+    replyText:string
+  }
 
 function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
     const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
@@ -48,15 +52,15 @@ function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
               <div className={styles.dialogueBlock}>
                 <div className={styles.dialogueBlock_date}>{"昨天10:44 上午"}</div>
                 {messages && messages.length > 0 && messages.map((message) => {
-                    const replyMessage = messages.find((msg) => msg.id === message.reply) ?? undefined;
+                    const replyMessage = messages.find((msg) => msg.id === message.reply?.replyID) ?? undefined;
 
                     return (
                         <div className={`${styles.otherDialogue} ${message.user === "宗本聰" && styles.selfDialogue}`} key={message.id}>
                             <div className={styles.avatarBlock}>
                                 <Avatar />
                             </div>
-                            <div className={styles.textBox}>
-                                { message.reply && replyMessage && <div>
+                            <div className={styles.textBox} onClick={() => handleReply(message.id, message.text)}>
+                                { message.reply?.replyText && replyMessage && <div>
                                     <div className={styles.reply}>已回覆你</div>
                                     <div className={styles.replyContainer}>
                                     <div className={styles.replyContainer_box}>
@@ -69,7 +73,7 @@ function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
                                         <p>{message.text}</p>
                                     </div>
                                     <button>{emojiIcon}</button>
-                                    <button onClick={() => handleReply(message.text)}>{ReplyIcon}</button>
+                                    <button onClick={() => handleReply(message.id, message.text)}>{ReplyIcon}</button>
                                 </div>
                                 
                             </div>

@@ -12,16 +12,20 @@ import { auth, db } from "../../firebase-config";
 import { collection } from "firebase/firestore";
 
 
-
+interface I_yourReply {
+  replyID:string,
+  replyText:string
+}
 
 function Chat() {
 
   const [textareaValue, setTextareaValue] = useState("");
   const messengerRef = collection(db,"messenger")
-  const [yourReply, setYourReply] = useState("")
+  const [yourReply, setYourReply] = useState<I_yourReply>({replyID:"",replyText:""})
 
-const handleReply = (replyText : string) => {
-  setYourReply(replyText)
+const handleReply = (messageId : string, replyText : string) => {
+  const newReplyObject ={replyID:messageId, replyText:replyText} 
+  setYourReply({...newReplyObject})
 }
 
 

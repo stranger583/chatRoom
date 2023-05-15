@@ -8,9 +8,17 @@ interface I_MessengerInputBox {
     textareaValue: string;
     setTextareaValue:React.Dispatch<React.SetStateAction<string>>
     messengerRef:CollectionReference<DocumentData>
-    yourReply:string
-    handleReply:(replyText:string)=> void
+    yourReply:I_yourReply
+    handleReply:(replyID:string, replyText:string)=> void
+}
 
+interface I_yourReply {
+  replyID:string,
+  replyText:string
+}
+
+interface ExtendedHTMLInputElement extends HTMLInputElement {
+  composing: boolean;
 }
 
 function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourReply,handleReply}:I_MessengerInputBox) {
@@ -32,26 +40,31 @@ function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourRepl
             createdAt: serverTimestamp(),
             user:"阿臻",
             room:"room1",
+            reply:{...yourReply},
         });
+
         setTextareaValue("");
 
     }
 
     const handleKeyDown = (event:React.KeyboardEvent ) => {
         if(event.key === "Enter" && !event.shiftKey) {
-            if(event.target.composing === true) return;
+          const inputElement = event.target as ExtendedHTMLInputElement;
+            if(inputElement.composing === true) return;
             event.preventDefault();
             event.stopPropagation();   
-            // console.log(123)
+            handleReply("","")
             submitButtonRef.current?.click()
         }
     }
     const handleCompositionStart = (event:React.CompositionEvent<HTMLTextAreaElement>) => {
-        event.target.composing = true;
+      const inputElement = event.target as ExtendedHTMLInputElement;
+      inputElement.composing = true;
     }
 
     const handleCompositionEnd = (event:React.CompositionEvent<HTMLTextAreaElement>) =>{
-        event.target.composing = false;
+      const inputElement = event.target as ExtendedHTMLInputElement;
+      inputElement.composing = false;
     }
 
     
@@ -63,12 +76,12 @@ function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourRepl
 
   return (
     <>
-    {yourReply.length !== 0 && <div className={styles.yourReplyContainer}>
+    {yourReply.replyText.length !== 0 && <div className={styles.yourReplyContainer}>
         <div className={styles.yourReplyPerson}>
             <div>正在回覆{"denny00337"}</div>
-            <p>{yourReply}</p>
+            <p>{yourReply.replyText}</p>
         </div>
-        <button onClick={() => handleReply("")}>
+        <button onClick={() => handleReply("","")}>
             <div>{CloseIcon}</div>
         </button>
     </div>}
