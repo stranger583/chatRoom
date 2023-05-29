@@ -6,15 +6,17 @@ import Login from '../../components/Login/Login'
 import Chat from "../../components/Chat/Chat";
 import { Routes, Route } from "react-router-dom";
 
+
 function LoginPage() {
+
 
   return (
         <div className={styles.LoginPage}>
-          <div className={styles.LoginPage}>
+          <div className={styles.LoginPage_container}>
             <Routes>             
                     <Route path='/profile' element={<div>Profile</div>} />
                     <Route path='/register' element={<Chat />} />
-                    <Route path='*' element={<div>Login</div>} />
+                    <Route path='*' element={<Login/>} />
                     {/* <Route path='*' element={<Login />} /> */}
             </Routes>
           </div>
