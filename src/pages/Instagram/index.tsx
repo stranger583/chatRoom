@@ -1,16 +1,18 @@
+import * as ReactDOM from 'react-dom/client'
+// import App from "../App"
+import { BrowserRouter } from 'react-router-dom'
 
-import styles from "./index.module.scss";
-import NavBar from "./components/NavBar/NavBar";
-import Chat from "./components/Chat/Chat";
+import styles from "./index.module.scss"
+import NavBar from '../../components/NavBar/NavBar';
+import Chat from "../../components/Chat/Chat";
 import { Routes, Route } from "react-router-dom";
 
-function App() {
+function Instagram() {
 
   return (
-
-        <div className={styles.app}>
+        <div className={styles.Instagram}>
           <NavBar />
-          <div className={styles.app_context}>
+          <div className={styles.Instagram_context}>
             <Routes>             
                     <Route index element={<div>Home</div>} />
                     <Route path='/search' element={<div>Search</div>} />
@@ -24,4 +26,12 @@ function App() {
   )
 }
 
-export default App
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
+    <BrowserRouter>
+        <Instagram />
+    </BrowserRouter>
+)
+
+
+export default Instagram

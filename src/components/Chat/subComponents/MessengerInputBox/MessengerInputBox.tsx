@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 import { emojiIcon, LikeIcon, PictureIcon, CloseIcon } from "../../../Icons/Icons";
 import styles from "./MessengerInputBox.module.scss";
-import { addDoc,collection,serverTimestamp, onSnapshot, where, query, CollectionReference, DocumentData } from "firebase/firestore";
+import { addDoc,serverTimestamp, CollectionReference, DocumentData } from "firebase/firestore";
 import * as React from 'react';
 
 interface I_MessengerInputBox {

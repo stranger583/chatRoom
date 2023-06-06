@@ -1,30 +1,36 @@
 import styles from "./Login.module.scss"
 // import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth" 
-import { GoogleLogin } from 'react-google-login';
+// import { GoogleLogin } from 'react-google-login';
+import { signInWithPopup } from "firebase/auth";
+import { googleProvider } from "../../firebase-config";
+import { auth } from "../../firebase-config"
 
 function Login() {
+  signInWithPopup(auth, googleProvider).then((result)=>{
+    console.log(result)
+  })
 
-const GoogleLoginButton = () => {
-  // 處理登入成功後的回調函數
-  const handleLoginSuccess = (response:any) => {
-    console.log('登入成功', response);
-  };
+// const GoogleLoginButton = () => {
+//   // 處理登入成功後的回調函數
+//   const handleLoginSuccess = (response:any) => {
+//     console.log('登入成功', response);
+//   };
 
-  // 處理登入失敗後的回調函數
-  const handleLoginFailure = (error:any) => {
-    console.log('登入失敗', error);
-  };
+//   // 處理登入失敗後的回調函數
+//   const handleLoginFailure = (error:any) => {
+//     console.log('登入失敗', error);
+//   };
 
-  return (
-    <GoogleLogin
-      clientId="YOUR_CLIENT_ID"
-      buttonText="使用 Google 登入"
-      onSuccess={handleLoginSuccess}
-      onFailure={handleLoginFailure}
-      cookiePolicy={'single_host_origin'}
-    />
-  );
-};
+//   return (
+//     <GoogleLogin
+//       clientId="YOUR_CLIENT_ID"
+//       buttonText="使用 Google 登入"
+//       onSuccess={handleLoginSuccess}
+//       onFailure={handleLoginFailure}
+//       cookiePolicy={'single_host_origin'}
+//     />
+//   );
+// };
 
   return (
     <>
@@ -35,7 +41,7 @@ const GoogleLoginButton = () => {
           <div className={styles.Login_inputText}><input type="text" /></div>
           <div><button>Login</button></div>
           <div><span>或</span></div>
-          <GoogleLoginButton/>
+          {/* <GoogleLoginButton/> */}
         </form>
         <a href="">忘記密碼</a>
       </div>

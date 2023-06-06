@@ -1,10 +1,10 @@
-import ReactDOM from 'react-dom/client'
+import * as ReactDOM from 'react-dom/client'
 // import App from "../App"
 import { BrowserRouter } from 'react-router-dom'
 
-import styles from "./Instagram.module.scss"
-import NavBar from '../../components/NavBar/NavBar';
-import Chat from "../../components/Chat/Chat";
+import styles from "./index.module.scss"
+import NavBar from '../components/NavBar/NavBar';
+import Chat from "../components/Chat/Chat";
 import { Routes, Route } from "react-router-dom";
 
 function Instagram() {
@@ -26,7 +26,7 @@ function Instagram() {
   )
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <BrowserRouter>
         <Instagram />

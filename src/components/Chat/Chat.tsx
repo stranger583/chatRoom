@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useState} from 'react';
 
 import styles from "./Chat.module.scss"
 import MessengerList from "./subComponents/MessengerList/MessengerList";
@@ -8,7 +8,7 @@ import MessengerInputBox from "./subComponents/MessengerInputBox/MessengerInputB
 import Avatar from "../Avatar";
 import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
 
-import { auth, db } from "../../firebase-config";
+import { db } from "../../firebase-config";
 import { collection } from "firebase/firestore";
 
 
