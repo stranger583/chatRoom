@@ -3,6 +3,7 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
     width: 350px;
     margin: auto;
     border: $whiteBorder;
+    padding: 10px 0;
 
     &_logo {
         margin: 36px auto;
@@ -13,12 +14,56 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
         
         
     }
+
+    div {
+        span {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    a {
+        display: block;
+        width: max-content;
+        margin: 12px auto 0;
+        text-align: center;
+        color: #00376B;
+        text-decoration: none;
+    }
 }
+
 
 .signUp {
     width: 350px;
     margin: auto;
+    padding: 10px 0;
     border: $whiteBorder;
+}
 
+input {
+    border-radius: 3px;
+    display: block;
+    margin: 0 auto 8px;
+    width: 254px;
+    height: 16px;
+    border: 0;
+    padding: 8px;
+}
+
+button {
+    display: block;
+    width: 270px;
+    height: 32px;
+    margin:  8px auto;
+    border-radius: 8px;
+}
+
+p {
+    margin: 15px;
+    text-align: center;
+
+    a{
+        color: #0095f6;
+    }
 }
 
