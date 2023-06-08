@@ -1,7 +1,14 @@
 $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
+.LoginWrapper {
+    min-height: calc(100vh - 24px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .Login {
     width: 350px;
-    margin: auto;
     border: $whiteBorder;
     padding: 10px 0;
 
@@ -22,20 +29,46 @@ $whiteBorder: 1px solid rgba($color: #fff, $alpha: .3);
         }
     }
 
-    a {
+    &_forgetPassword {
+        font-size: 13px;
         display: block;
         width: max-content;
         margin: 12px auto 0;
         text-align: center;
-        color: #00376B;
+        color: #385185;
         text-decoration: none;
+    }
+
+    &_or {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+
+        &::before {
+            content: "";
+            width: 109px;
+            height: 1px;
+            background-color: rgba($color: #fff, $alpha: .3);
+            display: block;
+        }
+
+        &::after {
+            content: "";
+            width: 109px;
+            height: 1px;
+            display: block;
+            background-color: rgba($color: #fff, $alpha: .3);
+
+        }
     }
 }
 
 
 .signUp {
     width: 350px;
-    margin: auto;
+    margin: 10px auto;
     padding: 10px 0;
     border: $whiteBorder;
 }
@@ -45,17 +78,18 @@ input {
     display: block;
     margin: 0 auto 8px;
     width: 254px;
-    height: 16px;
+    height: 14px;
     border: 0;
-    padding: 8px;
+    padding: 10px 8px 8px;
 }
 
 button {
     display: block;
     width: 270px;
     height: 32px;
-    margin:  8px auto;
+    margin:  16px auto;
     border-radius: 8px;
+    font-weight: 600;
 }
 
 p {
