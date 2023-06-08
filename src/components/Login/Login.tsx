@@ -12,7 +12,7 @@ interface I_userData {
 }
 
 function Login() {
-  const [userData, setUserData] = useState<I_userData>()
+  const [userData, setUserData] = useState<I_userData>() 
 
   if(userData) location.replace("/Instagram/index.html")
 
