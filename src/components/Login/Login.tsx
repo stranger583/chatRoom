@@ -24,7 +24,7 @@ function Login() {
     event.preventDefault();
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        const accessToken = result.user.accessToken!;
+        const accessToken = result.user.accessToken;
         const uid = result.user.uid;
         const authAvator = result.user.photoURL
         const displayName = result.user.displayName;

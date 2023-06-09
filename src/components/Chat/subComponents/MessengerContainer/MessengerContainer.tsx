@@ -7,11 +7,20 @@ import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
 interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
     handleReply:(replyID:string, replyText:string)=> void
+    userData:I_userData | undefined
 }
 interface I_reatedAt{
     nanoseconds:number;
     seconds:number;
 }
+
+interface I_userData {
+    displayName: string,
+    email: string,
+    accessToken:string,
+    uid: string,
+    authAvator:string,
+  }
 
 interface I_Messenger {
     text:string;
@@ -26,7 +35,9 @@ interface I_yourReply {
     replyText:string
   }
 
-function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
+  
+
+function MessengerContainer({userData,messengerRef,handleReply}:I_MessengerContainer) {
     const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
     const room = "room1";
 
@@ -44,6 +55,7 @@ function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
         })
         
     },[])
+    
 
   return (
     <div className={styles.messenger_box_body_dialogueContainer}>
@@ -55,7 +67,7 @@ function MessengerContainer({messengerRef,handleReply}:I_MessengerContainer) {
                     const replyMessage = messages.find((msg) => msg.id === message.reply?.replyID) ?? undefined;
 
                     return (
-                        <div className={`${styles.otherDialogue} ${message.user === "宗本聰" && styles.selfDialogue}`} key={message.id}>
+                        <div className={`${styles.otherDialogue} ${message.user === userData?.uid && styles.selfDialogue}`} key={message.id}>
                             <div className={styles.avatarBlock}>
                                 <Avatar />
                             </div>

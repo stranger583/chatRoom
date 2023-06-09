@@ -49,12 +49,12 @@ function Chat() {
 
   return (
     <div className={styles.messenger}>
-      <MessengerList/>
+      <MessengerList userData={userData}/>
       <div className={styles.messenger_box}>
         <div className={styles.messenger_box_head}>
           <div className={styles.messenger_box_head_avatar}>
-            <Avatar userPhoto={userData?.authAvator}/>
-            <span className={styles.messenger_box_head_avatarName}>{userData?.displayName ?? "宗本聰"}</span>
+            <Avatar/>
+            <span className={styles.messenger_box_head_avatarName}>{"宗本聰"}</span>
           </div>
           <div className={styles.messenger_box_head_iconBar}>
             <span>{PhoneIcon}</span>
@@ -64,7 +64,7 @@ function Chat() {
         </div>
 
         <div className={styles.messenger_box_body}>
-          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply}/>
+          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData}/>
           <MessengerInputBox 
             textareaValue={textareaValue} 
             setTextareaValue={setTextareaValue} 
