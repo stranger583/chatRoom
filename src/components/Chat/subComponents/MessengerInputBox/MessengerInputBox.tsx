@@ -1,8 +1,9 @@
 import {useEffect, useRef} from 'react';
+
 import { emojiIcon, LikeIcon, PictureIcon, CloseIcon } from "../../../Icons/Icons";
 import styles from "./MessengerInputBox.module.scss";
+
 import { addDoc,serverTimestamp, CollectionReference, DocumentData } from "firebase/firestore";
-import * as React from 'react';
 
 interface I_MessengerInputBox {
     textareaValue: string;

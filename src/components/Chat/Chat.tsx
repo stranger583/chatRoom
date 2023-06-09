@@ -31,6 +31,7 @@ function Chat() {
 
   const [textareaValue, setTextareaValue] = useState("");
   const messengerRef = collection(db,"messenger")
+
   const [yourReply, setYourReply] = useState<I_yourReply>({replyID:"",replyText:""})
 
   const [userData, setUserData] = useState<I_userData>()
@@ -45,7 +46,8 @@ function Chat() {
     const newReplyObject ={replyID:messageId, replyText:replyText} 
     setYourReply({...newReplyObject})
   }
-
+  
+  if(!userData) return
 
   return (
     <div className={styles.messenger}>

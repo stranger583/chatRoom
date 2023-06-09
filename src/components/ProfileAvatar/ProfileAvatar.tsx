@@ -1,13 +1,16 @@
 import img from "./img/海豚俠.png"
 import Styles from "./ProfileAvatar.module.scss"
 
+interface I_ProfileAvatar {
+  authAvator:string
+}
 
-function ProfileAvatar() {
+function ProfileAvatar({authAvator}:I_ProfileAvatar) {
 
   return (
     <div className={Styles.profileAvatar}>
         <div className={Styles.imgBox}>
-            <img src={img} alt="avatar" />
+            <img src={authAvator??img} alt="avatar" />
         </div>
     </div>
 
