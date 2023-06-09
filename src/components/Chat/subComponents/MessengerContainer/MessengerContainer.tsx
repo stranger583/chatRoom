@@ -66,8 +66,9 @@ function MessengerContainer({userData,messengerRef,handleReply}:I_MessengerConta
                 {messages && messages.length > 0 && messages.map((message) => {
                     const replyMessage = messages.find((msg) => msg.id === message.reply?.replyID) ?? undefined;
 
+                    console.log(message.user,userData?.uid)
                     return (
-                        <div className={`${styles.otherDialogue} ${message.user === userData?.uid && styles.selfDialogue}`} key={message.id}>
+                        <div className={`${styles.otherDialogue} ${message.user === userData?.displayName && styles.selfDialogue}`} key={message.id}>
                             <div className={styles.avatarBlock}>
                                 <Avatar />
                             </div>
