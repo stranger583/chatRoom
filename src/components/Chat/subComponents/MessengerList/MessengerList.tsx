@@ -24,6 +24,7 @@ function MessengerList({userData}:I_MessengerList) {
             <span>{"1則陌生訊息"}</span>
           </div>
           <ChatRoom />
+          {/* <ChatRoom />
           <ChatRoom />
           <ChatRoom />
           <ChatRoom />
@@ -32,8 +33,7 @@ function MessengerList({userData}:I_MessengerList) {
           <ChatRoom />
           <ChatRoom />
           <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
+          <ChatRoom /> */}
 
         </div>
 

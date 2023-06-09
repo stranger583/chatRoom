@@ -1,11 +1,15 @@
 import styles from "./Login.module.scss"
 // import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth" 
 // import { GoogleLogin } from 'react-google-login';
-import { signInWithPopup } from "firebase/auth";
-import { googleProvider } from "../../firebase-config";
-import { auth } from "../../firebase-config"
 import { useEffect, useState } from "react";
+
+import { signInWithPopup } from "firebase/auth";
+import { googleProvider,auth,db } from "../../firebase-config";
+import { doc, addDoc, serverTimestamp,setDoc } from "firebase/firestore";
+
+
 import { changeLoginData } from "./ChangeLoginData"
+
 
 interface I_userData {
   displayName: string,
@@ -20,26 +24,27 @@ function Login() {
 
   if (userData?.displayName) location.replace("/Instagram/index.html")
 
-  const handleGoogleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleGoogleLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const accessToken = result.user.accessToken;
-        const uid = result.user.uid;
-        const authAvator = result.user.photoURL
-        const displayName = result.user.displayName;
-        const email = result.user.email;
-        if (
-            accessToken === null 
-            || uid === null 
-            || displayName === null 
-            || email === null 
-            || authAvator === null
-          ) return;
-        const googleLoginData = { displayName, email, accessToken, uid, authAvator };
-        localStorage.setItem('googleLoginData', JSON.stringify(googleLoginData));
-        changeLoginData(setUserData)
-      })
+    const response = await signInWithPopup(auth, googleProvider)
+    const loginData = await response.user
+    const accessToken = loginData.accessToken;
+    const uid = loginData.uid;
+    const authAvator = loginData.photoURL
+    const displayName = loginData.displayName;
+    const email = loginData.email;
+    if (
+          accessToken === null 
+        || uid === null 
+        || displayName === null 
+        || email === null 
+        || authAvator === null
+      ) return;
+    const googleLoginData = { displayName, email, accessToken, uid, authAvator,createdAt:serverTimestamp() };
+    await setDoc(doc(db,"users",uid ),googleLoginData,{merge:true});
+    localStorage.setItem("googleLoginData",uid)
+    await changeLoginData(setUserData)
+
   }
 
   useEffect(() => {
