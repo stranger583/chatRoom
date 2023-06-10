@@ -1,11 +1,9 @@
 import styles from "./Login.module.scss"
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth" 
-// import { GoogleLogin } from 'react-google-login';
 import { useEffect, useState } from "react";
 
 import { signInWithPopup } from "firebase/auth";
 import { googleProvider,auth,db } from "../../firebase-config";
-import { doc, addDoc, serverTimestamp,setDoc } from "firebase/firestore";
+import { doc, serverTimestamp,setDoc } from "firebase/firestore";
 
 
 import { changeLoginData } from "./ChangeLoginData"
@@ -28,7 +26,7 @@ function Login() {
     event.preventDefault();
     const response = await signInWithPopup(auth, googleProvider)
     const loginData = await response.user
-    const accessToken = loginData.accessToken;
+    const accessToken = (loginData as any).accessToken;
     const uid = loginData.uid;
     const authAvator = loginData.photoURL
     const displayName = loginData.displayName;

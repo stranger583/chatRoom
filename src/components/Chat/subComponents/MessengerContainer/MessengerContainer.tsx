@@ -6,8 +6,9 @@ import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
 
 interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
-    handleReply:(replyID:string, replyText:string)=> void
-    userData:I_userData
+    handleReply:(replyID:string, replyText:string)=> void;
+    userData:I_userData;
+    roomUserData:I_userData;
 }
 interface I_reatedAt{
     nanoseconds:number;
@@ -37,7 +38,7 @@ interface I_yourReply {
 
   
 
-function MessengerContainer({userData,messengerRef,handleReply}:I_MessengerContainer) {
+function MessengerContainer({userData,messengerRef,handleReply,roomUserData}:I_MessengerContainer) {
     const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
     const room = "room1";
 
@@ -68,7 +69,7 @@ function MessengerContainer({userData,messengerRef,handleReply}:I_MessengerConta
                     return (
                         <div className={`${styles.otherDialogue} ${message.user === userData?.displayName && styles.selfDialogue}`} key={message.id}>
                             <div className={styles.avatarBlock}>
-                                <Avatar />
+                                <Avatar userPhoto={roomUserData?.authAvator}/>
                             </div>
                             <div className={styles.textBox} onClick={() => handleReply(message.id, message.text)}>
                                 { message.reply?.replyText && replyMessage && <div>

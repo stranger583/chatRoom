@@ -36,27 +36,31 @@ function Chat() {
 
   const [userData, setUserData] = useState<I_userData>()
 
+  const [roomUserData, setRoomUserData] = useState<any>()
+
   useEffect(()=>{
     changeLoginData(setUserData)
   },[])
-  
 
+  const handleChangeRoomInfo = (userData:I_userData) => {
+    setRoomUserData(userData)
+  }
 
   const handleReply = (messageId : string, replyText : string) => {
     const newReplyObject ={replyID:messageId, replyText:replyText} 
     setYourReply({...newReplyObject})
   }
-  
+
   if(!userData) return
 
   return (
     <div className={styles.messenger}>
-      <MessengerList userData={userData}/>
+      <MessengerList userData={userData} handleChangeRoomInfo={handleChangeRoomInfo}/>
       <div className={styles.messenger_box}>
         <div className={styles.messenger_box_head}>
           <div className={styles.messenger_box_head_avatar}>
-            <Avatar/>
-            <span className={styles.messenger_box_head_avatarName}>{"宗本聰"}</span>
+            <Avatar userPhoto={roomUserData?.authAvator}/>
+            <span className={styles.messenger_box_head_avatarName}>{ roomUserData?.displayName??"宗本聰"}</span>
           </div>
           <div className={styles.messenger_box_head_iconBar}>
             <span>{PhoneIcon}</span>
@@ -66,7 +70,7 @@ function Chat() {
         </div>
 
         <div className={styles.messenger_box_body}>
-          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData}/>
+          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData} roomUserData={roomUserData}/>
           <MessengerInputBox 
             textareaValue={textareaValue} 
             setTextareaValue={setTextareaValue} 

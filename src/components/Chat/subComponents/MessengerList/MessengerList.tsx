@@ -1,7 +1,7 @@
 import ChatRoom from "../ChatRoom/ChatRoom"
 import styles from './MessengerList.module.scss'
 
-import {  onSnapshot, where, query, CollectionReference, DocumentData, collection } from "firebase/firestore";
+import {  onSnapshot, where, query, collection } from "firebase/firestore";
 import { db } from "../../../../firebase-config";
 import { useEffect, useState } from "react";
 
@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 interface I_MessengerList {
   userData:I_userData;
+  handleChangeRoomInfo:(userData:I_userData) => void;
 }
 interface I_userData {
   displayName: string,
@@ -18,7 +19,7 @@ interface I_userData {
   authAvator:string,
 }
 
-function MessengerList({userData}:I_MessengerList) {
+function MessengerList({userData,handleChangeRoomInfo}:I_MessengerList) {
 
   const [usersInfos, setUsersInfos] = useState<I_userData[]>()
 
@@ -46,7 +47,7 @@ function MessengerList({userData}:I_MessengerList) {
             <span>{"1則陌生訊息"}</span>
           </div>
           {usersInfos && usersInfos.length > 0 && usersInfos.map((userInfo,i)=>{
-          return <ChatRoom key={i} userInfo={userInfo}/>
+          return <ChatRoom key={i} userInfo={userInfo} handleChangeRoomInfo={handleChangeRoomInfo}/>
           })}
           {/* <ChatRoom />
           <ChatRoom />

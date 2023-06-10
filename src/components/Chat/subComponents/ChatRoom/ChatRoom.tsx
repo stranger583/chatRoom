@@ -3,6 +3,8 @@ import styles from "./ChatRoom.module.scss"
 
 interface I_Chatroom {
   userInfo:I_userData
+  handleChangeRoomInfo:(userData:I_userData) => void;
+
 }
 interface I_userData {
   displayName: string,
@@ -12,10 +14,10 @@ interface I_userData {
   authAvator:string,
 }
 
-function ChatRoom({userInfo}:I_Chatroom) {
-  const {displayName,email,accessToken,uid,authAvator} = userInfo
+function ChatRoom({userInfo,handleChangeRoomInfo}:I_Chatroom) {
+  const {displayName,authAvator} = userInfo
   return (
-    <div className={styles.ChatRoom}>
+    <div className={styles.ChatRoom} onClick={() => handleChangeRoomInfo(userInfo)}>
       <ProfileAvatar authAvator={authAvator}/>
       <div className={styles.ChatRoom_box} >
         <p className={styles.ChatRoom_title}>{displayName}</p>
