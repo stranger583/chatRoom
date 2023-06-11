@@ -17,7 +17,7 @@ interface I_userData {
 function ChatRoom({userInfo,handleChangeRoomInfo}:I_Chatroom) {
   const {displayName,authAvator} = userInfo
   return (
-    <div className={styles.ChatRoom} onClick={() => handleChangeRoomInfo(userInfo)}>
+    <div className={styles.ChatRoom} onClick={() => handleChangeRoomInfo(userInfo,)}>
       <ProfileAvatar authAvator={authAvator}/>
       <div className={styles.ChatRoom_box} >
         <p className={styles.ChatRoom_title}>{displayName}</p>

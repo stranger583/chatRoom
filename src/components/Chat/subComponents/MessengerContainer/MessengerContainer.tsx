@@ -8,7 +8,8 @@ interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
     handleReply:(replyID:string, replyText:string)=> void;
     userData:I_userData;
-    roomUserData:I_userData;
+    roomUserData:I_userData| undefined;
+    messageData:any;
 }
 interface I_reatedAt{
     nanoseconds:number;
@@ -38,7 +39,7 @@ interface I_yourReply {
 
   
 
-function MessengerContainer({userData,messengerRef,handleReply,roomUserData}:I_MessengerContainer) {
+function MessengerContainer({userData,messengerRef,handleReply,roomUserData,messageData}:I_MessengerContainer) {
     const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
     const room = "room1";
 

@@ -10,6 +10,10 @@ import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
 
 import { db } from "../../firebase-config";
 import { collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import {  onSnapshot, query, CollectionReference, DocumentData } from "firebase/firestore";
+
+
 
 import { changeLoginData } from  "../Login/ChangeLoginData"
 
@@ -27,6 +31,20 @@ interface I_userData {
   authAvator:string,
 }
 
+interface I_reatedAt{
+  nanoseconds:number;
+  seconds:number;
+}
+
+interface I_Messenger {
+  text:string;
+  user:string;
+  room:string;
+  id:string;
+  createdAt:I_reatedAt;
+  reply:I_yourReply;
+}
+
 function Chat() {
 
   const [textareaValue, setTextareaValue] = useState("");
@@ -36,22 +54,51 @@ function Chat() {
 
   const [userData, setUserData] = useState<I_userData>()
 
-  const [roomUserData, setRoomUserData] = useState<any>()
+  const [roomUserData, setRoomUserData] = useState<I_userData>()
+
+  const [messageData, setMessageData] = useState<any>()
 
   useEffect(()=>{
     changeLoginData(setUserData)
   },[])
 
-  const handleChangeRoomInfo = (userData:I_userData) => {
+  const handleChangeRoomInfo = async(userData:I_userData) => {
     setRoomUserData(userData)
+    
   }
+  // console.log(`${roomUserData?.displayName+" "+userData?.displayName}`)
 
   const handleReply = (messageId : string, replyText : string) => {
     const newReplyObject ={replyID:messageId, replyText:replyText} 
     setYourReply({...newReplyObject})
   }
 
-  if(!userData) return
+  const fetchDataFunc = async() => {
+    const docSnap = await getDoc(doc(db, "newMessenger", `${roomUserData?.displayName+" "+userData?.displayName}`));
+    if(docSnap.exists()) {
+      // console.log(docSnap.data())
+    }
+  }
+
+  useEffect(()=>{
+  fetchDataFunc()
+  // const queryMessenger = doc(db, "newMessenger", `${roomUserData?.displayName+" "+userData?.displayName}`);
+  //   onSnapshot(queryMessenger,(snapshot)=>{
+  //     const messages: I_Messenger[] = [];
+  //     console.log("snapshot.data()?.textArray",snapshot.data()?.textArray)
+  //     snapshot.data()?.textArray && snapshot.data()?.textArray.foreach((doc:any)=> {
+  //       const data = doc.data() as I_Messenger;
+  //       messages.push({...data,id:doc.id})
+
+  //     })
+  //       setMessageData(messages)
+
+  //   })
+  },[roomUserData?.displayName])
+  // console.log("messageData",messageData)
+
+
+  if(!userData ) return
 
   return (
     <div className={styles.messenger}>
@@ -70,7 +117,7 @@ function Chat() {
         </div>
 
         <div className={styles.messenger_box_body}>
-          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData} roomUserData={roomUserData}/>
+          <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData} roomUserData={roomUserData} messageData={messageData} />
           <MessengerInputBox 
             textareaValue={textareaValue} 
             setTextareaValue={setTextareaValue} 
