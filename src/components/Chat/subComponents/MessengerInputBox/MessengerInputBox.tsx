@@ -74,7 +74,6 @@ function MessengerInputBox({textareaValue,setTextareaValue,yourReply,handleReply
       inputElement.composing = false;
     }
 
-    
     useEffect(() => {
       if (!textareaRef.current) return
       textareaRef.current.style.height = "0" + "px";

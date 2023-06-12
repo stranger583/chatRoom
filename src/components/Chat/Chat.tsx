@@ -46,8 +46,8 @@ function Chat() {
   }
 
   const combinedToRoom = () => {
-    const sortUsersName =  [roomUserData?.displayName,userData?.displayName].sort()
-    const roomId =`${sortUsersName[0]+" "+sortUsersName[1]}`
+    const sortUsersId =  [roomUserData?.uid,userData?.uid].sort()
+    const roomId =`${sortUsersId[0]+" "+sortUsersId[1]}`
     return roomId
   }
 
