@@ -17,8 +17,13 @@ export default defineConfig({
       input:{
         main:resolve(root,'index.html'),
         Instagram:resolve(root,'Instagram','index.html'),
-
-      }
+      },
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
     }
   },
   server: {
