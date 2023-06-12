@@ -1,7 +1,6 @@
 import Avatar from "../../../Avatar"
 import styles from './MessengerContainer.module.scss'
-import {useEffect, useState } from 'react';
-import {  onSnapshot, where, query, CollectionReference, DocumentData } from "firebase/firestore";
+import { CollectionReference, DocumentData } from "firebase/firestore";
 import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
 
 interface I_MessengerContainer {
@@ -9,7 +8,7 @@ interface I_MessengerContainer {
     handleReply:(replyID:string, replyText:string)=> void;
     userData:I_userData;
     roomUserData:I_userData| undefined;
-    messageData:any;
+    messageData:I_Messenger[];
 }
 interface I_reatedAt{
     nanoseconds:number;
@@ -26,8 +25,8 @@ interface I_userData {
 
 interface I_Messenger {
     text:string;
-    user:string;
-    room:string;
+    send:string;
+    isShow:boolean;
     id:string;
     createdAt:I_reatedAt;
     reply:I_yourReply;
@@ -39,25 +38,8 @@ interface I_yourReply {
 
   
 
-function MessengerContainer({userData,messengerRef,handleReply,roomUserData,messageData}:I_MessengerContainer) {
-    const [messages, setMessages] = useState<I_Messenger[]| never[]>([]);
-    const room = "room1";
-
-    useEffect(()=>{
-        const queryMessenger = query(messengerRef,where("room", "==", room));
-        onSnapshot(queryMessenger,(snapshot)=>{
-            const messages: I_Messenger[] = [];
-            snapshot.forEach((doc)=>{
-                const data = doc.data() as I_Messenger;
-                messages.push({...data,id:doc.id})
-            })
-
-            messages.sort((a, b) => new Date(a.createdAt.seconds).getTime() - new Date(b.createdAt.seconds).getTime());
-            setMessages(messages)
-        })
-        
-    },[])
-    
+function MessengerContainer({userData,handleReply,roomUserData,messageData}:I_MessengerContainer) {
+    const messages = messageData;
 
   return (
     <div className={styles.messenger_box_body_dialogueContainer}>
@@ -68,13 +50,13 @@ function MessengerContainer({userData,messengerRef,handleReply,roomUserData,mess
                 {messages && messages.length > 0 && messages.map((message) => {
                     const replyMessage = messages.find((msg) => msg.id === message.reply?.replyID) ?? undefined;
                     return (
-                        <div className={`${styles.otherDialogue} ${message.user === userData?.displayName && styles.selfDialogue}`} key={message.id}>
+                        <div className={`${styles.otherDialogue} ${message.send === userData?.displayName && styles.selfDialogue}`} key={message.id}>
                             <div className={styles.avatarBlock}>
                                 <Avatar userPhoto={roomUserData?.authAvator}/>
                             </div>
                             <div className={styles.textBox} onClick={() => handleReply(message.id, message.text)}>
                                 { message.reply?.replyText && replyMessage && <div>
-                                    <div className={styles.reply}>已回覆你</div>
+                                    <div className={styles.reply}>你已回覆</div>
                                     <div className={styles.replyContainer}>
                                     <div className={styles.replyContainer_box}>
                                         {replyMessage?.text}

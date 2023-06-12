@@ -5,19 +5,8 @@ import {  onSnapshot, where, query, collection } from "firebase/firestore";
 import { db } from "../../../../firebase-config";
 import { useEffect, useState } from "react";
 
+import { I_userData,I_MessengerList } from "../../../../interface";
 
-
-interface I_MessengerList {
-  userData:I_userData;
-  handleChangeRoomInfo:(userData:I_userData) => void;
-}
-interface I_userData {
-  displayName: string,
-  email: string,
-  accessToken:string,
-  uid: string,
-  authAvator:string,
-}
 
 function MessengerList({userData,handleChangeRoomInfo}:I_MessengerList) {
 
@@ -49,17 +38,6 @@ function MessengerList({userData,handleChangeRoomInfo}:I_MessengerList) {
           {usersInfos && usersInfos.length > 0 && usersInfos.map((userInfo,i)=>{
           return <ChatRoom key={i} userInfo={userInfo} handleChangeRoomInfo={handleChangeRoomInfo}/>
           })}
-          {/* <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom />
-          <ChatRoom /> */}
-
         </div>
 
       </div>

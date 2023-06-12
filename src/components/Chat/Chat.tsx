@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import styles from "./Chat.module.scss"
 import MessengerList from "./subComponents/MessengerList/MessengerList";
@@ -9,41 +9,12 @@ import Avatar from "../Avatar";
 import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
 
 import { db } from "../../firebase-config";
-import { collection } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
-import {  onSnapshot, query, CollectionReference, DocumentData } from "firebase/firestore";
-
+import { collection,doc, setDoc,getDoc,onSnapshot } from "firebase/firestore";
 
 
 import { changeLoginData } from  "../Login/ChangeLoginData"
+import { I_yourReply,I_userData,I_Messenger } from '../../interface';
 
-
-interface I_yourReply {
-  replyID:string,
-  replyText:string
-}
-
-interface I_userData {
-  displayName: string,
-  email: string,
-  accessToken:string,
-  uid: string,
-  authAvator:string,
-}
-
-interface I_reatedAt{
-  nanoseconds:number;
-  seconds:number;
-}
-
-interface I_Messenger {
-  text:string;
-  user:string;
-  room:string;
-  id:string;
-  createdAt:I_reatedAt;
-  reply:I_yourReply;
-}
 
 function Chat() {
 
@@ -56,49 +27,72 @@ function Chat() {
 
   const [roomUserData, setRoomUserData] = useState<I_userData>()
 
-  const [messageData, setMessageData] = useState<any>()
+  const [messageData, setMessageData] = useState<I_Messenger[]| never[]>([])
 
-  useEffect(()=>{
-    changeLoginData(setUserData)
-  },[])
+
+  const createMessengerKey = useRef(false);
 
   const handleChangeRoomInfo = async(userData:I_userData) => {
     setRoomUserData(userData)
+    createMessengerKey.current = true 
+    // 新增房間
+    setYourReply({replyID:"", replyText:""})
     
   }
-  // console.log(`${roomUserData?.displayName+" "+userData?.displayName}`)
-
+  
   const handleReply = (messageId : string, replyText : string) => {
     const newReplyObject ={replyID:messageId, replyText:replyText} 
     setYourReply({...newReplyObject})
   }
 
-  const fetchDataFunc = async() => {
-    const docSnap = await getDoc(doc(db, "newMessenger", `${roomUserData?.displayName+" "+userData?.displayName}`));
-    if(docSnap.exists()) {
-      // console.log(docSnap.data())
-    }
+  const combinedToRoom = () => {
+    const sortUsersName =  [roomUserData?.displayName,userData?.displayName].sort()
+    const roomId =`${sortUsersName[0]+" "+sortUsersName[1]}`
+    return roomId
+  }
+
+  const fetchNewMessengerInfo = () => {
+    const queryMessenger = doc(db, "newMessenger", combinedToRoom())
+    if(roomUserData?.displayName && userData?.displayName) return queryMessenger
+    return doc(db, "newMessenger", combinedToRoom()) //之後改成沒資料抓第一個聊天室，注意會有 undefined 導致第一次渲染失敗
+  }
+
+  const createMessengerForm = async () => {
+    await setDoc(doc(db,"newMessenger",combinedToRoom() ),{textArray:[],},{merge:true});
+  }
+  const checkMessengerForm = async () => {
+    const response = await getDoc(doc(db,"newMessenger",combinedToRoom() ));
+    const isMessengerExist = response.exists()
+    if(!createMessengerKey.current ||  isMessengerExist ) return 
+    createMessengerForm()
+    createMessengerKey.current = false
+
   }
 
   useEffect(()=>{
-  fetchDataFunc()
-  // const queryMessenger = doc(db, "newMessenger", `${roomUserData?.displayName+" "+userData?.displayName}`);
-  //   onSnapshot(queryMessenger,(snapshot)=>{
-  //     const messages: I_Messenger[] = [];
-  //     console.log("snapshot.data()?.textArray",snapshot.data()?.textArray)
-  //     snapshot.data()?.textArray && snapshot.data()?.textArray.foreach((doc:any)=> {
-  //       const data = doc.data() as I_Messenger;
-  //       messages.push({...data,id:doc.id})
+    changeLoginData(setUserData)
+  },[])
+ 
+  useEffect(()=>{
+    const queryMessenger = fetchNewMessengerInfo()
 
-  //     })
-  //       setMessageData(messages)
+    onSnapshot(queryMessenger,(snapshot)=>{
+      const messages: I_Messenger[] = [];
+      snapshot.data()?.textArray && snapshot.data()?.textArray.forEach((doc:I_Messenger,i:number)=> {
+        const data = doc as I_Messenger;
+        messages.push({...data,id:i.toString()})
+      })
+        setMessageData(messages)
 
-  //   })
+    })
   },[roomUserData?.displayName])
-  // console.log("messageData",messageData)
+
+  useEffect(()=> {
+    checkMessengerForm()
+  },[messageData])
 
 
-  if(!userData ) return
+  if(!userData || !messageData) return <div></div>
 
   return (
     <div className={styles.messenger}>
@@ -124,6 +118,10 @@ function Chat() {
             messengerRef={messengerRef} 
             yourReply={yourReply}
             handleReply={handleReply}
+            roomUserData={roomUserData}
+            userData={userData}
+            messageData={messageData}
+            combinedToRoom={combinedToRoom}
           />
         </div>
       </div>

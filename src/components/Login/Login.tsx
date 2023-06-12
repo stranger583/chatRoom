@@ -7,15 +7,7 @@ import { doc, serverTimestamp,setDoc } from "firebase/firestore";
 
 
 import { changeLoginData } from "./ChangeLoginData"
-
-
-interface I_userData {
-  displayName: string,
-  email: string,
-  accessToken:string,
-  uid: string,
-  authAvator:string,
-}
+import { I_userData } from "../../interface";
 
 function Login() {
   const [userData, setUserData] = useState<I_userData>()
@@ -25,7 +17,7 @@ function Login() {
   const handleGoogleLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const response = await signInWithPopup(auth, googleProvider)
-    const loginData = await response.user
+    const loginData = response.user
     const accessToken = (loginData as any).accessToken;
     const uid = loginData.uid;
     const authAvator = loginData.photoURL

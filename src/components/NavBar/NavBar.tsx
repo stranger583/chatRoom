@@ -4,14 +4,7 @@ import { Link } from "react-router-dom"
 import Avatar from "../Avatar"
 import { useState, useEffect } from "react"
 import { changeLoginData } from  "../Login/ChangeLoginData"
-
-interface I_userData {
-  displayName: string,
-  email: string,
-  accessToken:string,
-  uid: string,
-  authAvator:string,
-}
+import { I_userData } from "../../interface"
 
 
 function NavBar() {

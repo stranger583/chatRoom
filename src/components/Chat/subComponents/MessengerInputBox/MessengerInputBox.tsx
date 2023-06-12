@@ -2,31 +2,32 @@ import {useEffect, useRef} from 'react';
 
 import { emojiIcon, LikeIcon, PictureIcon, CloseIcon } from "../../../Icons/Icons";
 import styles from "./MessengerInputBox.module.scss";
+import { db } from '../../../../firebase-config';
+import {  updateDoc, doc, CollectionReference, DocumentData, arrayUnion,Timestamp } from "firebase/firestore";
 
-import { addDoc,serverTimestamp, CollectionReference, DocumentData } from "firebase/firestore";
-
+import { I_Messenger,I_userData,I_yourReply } from '../../../../interface';
 interface I_MessengerInputBox {
     textareaValue: string;
-    setTextareaValue:React.Dispatch<React.SetStateAction<string>>
-    messengerRef:CollectionReference<DocumentData>
-    yourReply:I_yourReply
-    handleReply:(replyID:string, replyText:string)=> void
-}
-
-interface I_yourReply {
-  replyID:string,
-  replyText:string
+    setTextareaValue:React.Dispatch<React.SetStateAction<string>>;
+    messengerRef:CollectionReference<DocumentData>;
+    yourReply:I_yourReply;
+    handleReply:(replyID:string, replyText:string)=> void;
+    roomUserData:I_userData| undefined;
+    userData:I_userData| undefined;
+    messageData:I_Messenger[] | never[];
+    combinedToRoom:()=>string
 }
 
 interface ExtendedHTMLInputElement extends HTMLInputElement {
   composing: boolean;
 }
 
-function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourReply,handleReply}:I_MessengerInputBox) {
+function MessengerInputBox({textareaValue,setTextareaValue,yourReply,handleReply,userData,messageData,combinedToRoom}:I_MessengerInputBox) {
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const submitButtonRef = useRef<HTMLButtonElement>(null);
 
+    const yourReplyID = +yourReply.replyID
     
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       event.target?.value;
@@ -36,13 +37,18 @@ function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourRepl
     const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
         if(textareaValue === "") return;
-        await addDoc(messengerRef, {
-            text: textareaValue,
-            createdAt: serverTimestamp(),
-            user:"阿臻",
-            room:"room1",
-            reply:{...yourReply},
-        });
+        const queryMessenger = doc(db, "newMessenger", combinedToRoom())
+        const message  = {
+          text: textareaValue,
+          createdAt:Timestamp.now(),
+          send:userData?.displayName,
+          reply:{...yourReply},
+          isShow: true,
+          id:messageData.length,
+        }
+        await updateDoc(queryMessenger, {
+          textArray:arrayUnion(message)
+          });
 
         setTextareaValue("");
 
@@ -79,7 +85,7 @@ function MessengerInputBox({textareaValue,setTextareaValue,messengerRef,yourRepl
     <>
     {yourReply.replyText.length !== 0 && <div className={styles.yourReplyContainer}>
         <div className={styles.yourReplyPerson}>
-            <div>正在回覆{"denny00337"}</div>
+            <div>正在回覆{messageData[yourReplyID].send}</div>
             <p>{yourReply.replyText}</p>
         </div>
         <button onClick={() => handleReply("","")}>
