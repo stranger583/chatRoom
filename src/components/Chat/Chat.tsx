@@ -4,6 +4,7 @@ import styles from "./Chat.module.scss"
 import MessengerList from "./subComponents/MessengerList/MessengerList";
 import MessengerContainer from "./subComponents/MessengerContainer/MessengerContainer";
 import MessengerInputBox from "./subComponents/MessengerInputBox/MessengerInputBox";
+import VideoChat from './subComponents/VideoChat/VideoChat';
 
 import Avatar from "../Avatar";
 import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
@@ -14,6 +15,7 @@ import { collection,doc, setDoc,getDoc,onSnapshot } from "firebase/firestore";
 
 import { changeLoginData } from  "../Login/ChangeLoginData"
 import { I_yourReply,I_userData,I_Messenger } from '../../interface';
+
 
 
 function Chat() {
@@ -112,6 +114,7 @@ function Chat() {
 
         <div className={styles.messenger_box_body}>
           <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData} roomUserData={roomUserData} messageData={messageData} />
+          <VideoChat/>
           <MessengerInputBox 
             textareaValue={textareaValue} 
             setTextareaValue={setTextareaValue} 

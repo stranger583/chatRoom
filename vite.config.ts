@@ -27,6 +27,9 @@ export default defineConfig({
       },
     }
   },
+  define: {
+    global: {},
+  },
   server: {
     port: 8080,
     host: 'localhost',
