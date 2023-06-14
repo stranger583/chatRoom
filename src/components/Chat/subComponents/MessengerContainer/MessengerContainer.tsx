@@ -2,6 +2,7 @@ import Avatar from "../../../Avatar"
 import styles from './MessengerContainer.module.scss'
 import { CollectionReference, DocumentData } from "firebase/firestore";
 import { emojiIcon, ReplyIcon } from "../../../Icons/Icons";
+import { useEffect, useRef } from "react";
 
 interface I_MessengerContainer {
     messengerRef:CollectionReference<DocumentData>
@@ -40,12 +41,22 @@ interface I_yourReply {
 
 function MessengerContainer({userData,handleReply,roomUserData,messageData}:I_MessengerContainer) {
     const messages = messageData;
+    const dialogueBlockRef = useRef(null);
+
+    useEffect(()=> {
+        if(!dialogueBlockRef.current) return
+        (dialogueBlockRef.current as any).scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+        })
+            // dialogueBlockRef.current!.scrollTop = dialogueBlockRef.current!.scrollHeight        
+    },[roomUserData,messageData])
 
   return (
     <div className={styles.messenger_box_body_dialogueContainer}>
             <div className={styles.messenger_box_body_dialogueContainer_context}>
 
-              <div className={styles.dialogueBlock}>
+              <div className={styles.dialogueBlock} ref={dialogueBlockRef}>
                 <div className={styles.dialogueBlock_date}>{"昨天10:44 上午"}</div>
                 {messages && messages.length > 0 && messages.map((message) => {
                     const replyMessage = messages.find((msg) => msg.id === message.reply?.replyID) ?? undefined;
