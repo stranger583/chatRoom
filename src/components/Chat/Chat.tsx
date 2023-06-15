@@ -10,7 +10,7 @@ import Avatar from "../Avatar";
 import { PhoneIcon, VideoIcon, InfoIcon } from "../Icons/Icons";
 
 import { db } from "../../firebase-config";
-import { collection,doc, setDoc,getDoc,onSnapshot } from "firebase/firestore";
+import { collection, doc, setDoc,getDoc,onSnapshot } from "firebase/firestore";
 
 
 import { changeLoginData } from  "../Login/ChangeLoginData"
@@ -114,7 +114,7 @@ function Chat() {
 
         <div className={styles.messenger_box_body}>
           <MessengerContainer messengerRef={messengerRef} handleReply={handleReply} userData={userData} roomUserData={roomUserData} messageData={messageData} />
-          <VideoChat/>
+          {/* <VideoChat/> */}
           <MessengerInputBox 
             textareaValue={textareaValue} 
             setTextareaValue={setTextareaValue} 

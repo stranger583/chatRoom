@@ -1,20 +1,23 @@
 import React, { useEffect, useRef } from 'react';
-import Peer from 'simple-peer';
-import { io } from 'socket.io-client';
+
+import { collection,doc, setDoc,addDoc,onSnapshot } from "firebase/firestore";
+import { db } from '../../../../firebase-config';
+
 
 function VideoChat() {
-    const videoRef = useRef(null);
-    const socketRef = useRef();
-    const userRef = useRef('');
-    const peerRef = useRef();
+    const localVideoRef = useRef(null);
+    const remoteVideoRef = useRef(null);
+    const localStreamRef = useRef(null);
+    const peerRef = useRef(null);
 
-    // get video/voice stream
+
 
     
 
     return (
         <div>
-            <video ref={videoRef} autoPlay></video>
+            <video ref={localVideoRef} autoPlay></video>
+            <video ref={remoteVideoRef} autoPlay />
         </div>
     )
 }
